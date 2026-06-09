@@ -48,13 +48,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 22px 60px;
-      background: linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, transparent 100%);
+      padding: 18px 24px;
+      background: linear-gradient(to bottom, rgba(10,10,10,0.97) 0%, transparent 100%);
     }
 
     .date-label {
-      font-size: 11px;
-      letter-spacing: 0.18em;
+      font-size: 10px;
+      letter-spacing: 0.14em;
       color: var(--muted);
       font-weight: 300;
       text-transform: uppercase;
@@ -72,10 +72,11 @@
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.1em;
-      padding: 5px 12px;
+      padding: 6px 13px;
       cursor: pointer;
       border-radius: var(--radius);
       transition: all .2s;
+      touch-action: manipulation;
     }
     .lang-switcher button.active,
     .lang-switcher button:hover {
@@ -92,7 +93,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 120px 40px 80px;
+      padding: 100px 20px 60px;
       position: relative;
     }
 
@@ -110,10 +111,11 @@
     .hero-domain {
       font-family: 'Playfair Display', serif;
       font-weight: 900;
-      font-size: clamp(64px, 9vw, 130px);
-      line-height: 1.0;
-      letter-spacing: -0.02em;
-      margin-bottom: 36px;
+      font-size: clamp(38px, 10vw, 130px);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 28px;
+      word-break: break-word;
     }
     .hero-domain .www  { color: var(--gold); }
     .hero-domain .name { color: var(--white); }
@@ -123,19 +125,22 @@
     .status-badge {
       display: inline-flex;
       align-items: center;
-      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
       background: var(--red);
       border: 1px solid rgba(255,255,255,0.08);
       color: #fff;
-      padding: 14px 32px;
+      padding: 12px 22px;
       border-radius: var(--radius);
-      font-size: 13px;
-      letter-spacing: 0.18em;
+      font-size: 12px;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       font-weight: 600;
-      margin-bottom: 80px;
+      margin-bottom: 60px;
       position: relative;
       overflow: hidden;
+      max-width: 90vw;
     }
     .status-badge::after {
       content: '';
@@ -143,11 +148,12 @@
       inset: 0;
       background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 60%);
     }
-    .status-badge .label { color: rgba(255,255,255,0.55); font-weight: 400; letter-spacing: 0.22em; }
+    .status-badge .label { color: rgba(255,255,255,0.55); font-weight: 400; letter-spacing: 0.2em; }
     .status-badge .dot-pulse {
       width: 8px; height: 8px;
       background: #ff6b6b;
       border-radius: 50%;
+      flex-shrink: 0;
       animation: pulse 1.8s infinite;
     }
     @keyframes pulse {
@@ -157,7 +163,7 @@
 
     /* ── FORM SECTION ── */
     .form-section {
-      padding: 0 40px 120px;
+      padding: 0 16px 80px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -165,34 +171,39 @@
 
     .section-eyebrow {
       font-size: 10px;
-      letter-spacing: 0.3em;
+      letter-spacing: 0.26em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 18px;
+      margin-bottom: 14px;
+      text-align: center;
     }
 
     .section-title {
       font-family: 'Playfair Display', serif;
       font-weight: 700;
-      font-size: clamp(24px, 3vw, 36px);
+      font-size: clamp(20px, 5.5vw, 36px);
       color: var(--white);
       margin-bottom: 10px;
       text-align: center;
+      line-height: 1.25;
+      padding: 0 8px;
     }
 
     .section-sub {
-      font-size: 15px;
+      font-size: 14px;
       color: var(--muted);
       font-style: italic;
-      margin-bottom: 48px;
+      margin-bottom: 36px;
       text-align: center;
+      padding: 0 8px;
+      line-height: 1.5;
     }
 
     .divider {
-      width: 48px;
+      width: 40px;
       height: 1px;
       background: var(--border);
-      margin: 0 auto 48px;
+      margin: 0 auto 36px;
     }
 
     .offer-form {
@@ -201,19 +212,19 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 40px;
+      padding: 28px 20px;
     }
 
     .form-row {
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
     .form-row label {
       display: block;
-      font-size: 11px;
-      letter-spacing: 0.14em;
+      font-size: 10px;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 8px;
+      margin-bottom: 7px;
     }
     .form-row input,
     .form-row textarea {
@@ -223,11 +234,13 @@
       border-radius: var(--radius);
       color: var(--white);
       font-family: 'Inter', sans-serif;
-      font-size: 15px;
-      padding: 13px 16px;
+      font-size: 16px; /* 16px prevents iOS zoom */
+      padding: 13px 14px;
       outline: none;
       transition: border-color .2s;
       resize: none;
+      -webkit-appearance: none;
+      appearance: none;
     }
     .form-row input::placeholder,
     .form-row textarea::placeholder { color: #444; }
@@ -237,8 +250,8 @@
     .price-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-bottom: 20px;
+      gap: 12px;
+      margin-bottom: 18px;
     }
 
     .submit-btn {
@@ -250,15 +263,17 @@
       font-family: 'Inter', sans-serif;
       font-size: 13px;
       font-weight: 700;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      padding: 15px;
+      padding: 16px;
       cursor: pointer;
       transition: background .2s, transform .15s;
-      margin-top: 8px;
+      margin-top: 6px;
+      touch-action: manipulation;
+      -webkit-appearance: none;
     }
-    .submit-btn:hover   { background: var(--gold2); transform: translateY(-1px); }
-    .submit-btn:active  { transform: translateY(0); }
+    .submit-btn:hover   { background: var(--gold2); }
+    .submit-btn:active  { transform: scale(0.98); }
     .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
     .form-note {
@@ -270,21 +285,23 @@
     }
 
     /* feedback messages */
-    .msg { display: none; margin-top: 16px; padding: 12px 16px; border-radius: var(--radius); font-size: 14px; text-align: center; }
+    .msg { display: none; margin-top: 14px; padding: 12px 14px; border-radius: var(--radius); font-size: 13px; text-align: center; line-height: 1.5; }
     .msg.success { background: rgba(40,167,69,0.15); border: 1px solid rgba(40,167,69,0.3); color: #6fcf97; display: block; }
     .msg.error   { background: rgba(220,53,69,0.15); border: 1px solid rgba(220,53,69,0.3); color: #eb5757; display: block; }
 
     /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--border);
-      padding: 28px 60px;
+      padding: 22px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
     }
     footer .foot-domain {
       font-family: 'Playfair Display', serif;
-      font-size: 15px;
+      font-size: 14px;
       color: var(--gold);
     }
     footer .foot-copy {
@@ -299,13 +316,23 @@
     body.uz span[data-uz] { display: inline; }
     body.uz span[data-ru] { display: none; }
 
-    @media (max-width: 640px) {
-      header { padding: 18px 20px; }
-      .hero { padding: 100px 20px 60px; }
-      .form-section { padding: 0 20px 80px; }
-      .offer-form { padding: 28px 20px; }
-      .price-row { grid-template-columns: 1fr; }
-      footer { padding: 22px 20px; flex-direction: column; gap: 8px; text-align: center; }
+    /* ── DESKTOP overrides ── */
+    @media (min-width: 641px) {
+      header { padding: 22px 60px; }
+      .hero  { padding: 120px 40px 80px; }
+      .hero-domain { font-size: clamp(64px, 9vw, 130px); line-height: 1.0; }
+      .status-badge { font-size: 13px; padding: 14px 32px; gap: 14px; margin-bottom: 80px; }
+      .form-section { padding: 0 40px 120px; }
+      .offer-form   { padding: 40px; }
+      footer { padding: 28px 60px; }
+      .section-title { font-size: clamp(26px, 3vw, 36px); }
+      .section-sub   { font-size: 15px; }
+    }
+
+    /* ── MOBILE: tiny screens ── */
+    @media (max-width: 380px) {
+      .hero-domain { font-size: 32px; }
+      .price-row   { grid-template-columns: 1fr; }
     }
   </style>
 </head>
