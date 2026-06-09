@@ -71,6 +71,47 @@
             text-transform: uppercase;
         }
 
+        /* ——————————————— LANG SWITCHER ——————————————— */
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(247,244,238,0.04);
+            border: 1px solid rgba(201,168,76,0.2);
+            padding: 4px;
+            border-radius: 2px;
+        }
+
+        .lang-btn {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 5px 10px;
+            transition: color 0.2s ease, background 0.2s ease;
+            border-radius: 1px;
+            line-height: 1;
+        }
+
+        .lang-btn.active {
+            background: var(--gold);
+            color: var(--ink);
+        }
+
+        .lang-btn:hover:not(.active) {
+            color: var(--paper);
+        }
+
+        .lang-sep {
+            width: 1px;
+            height: 12px;
+            background: rgba(201,168,76,0.2);
+        }
+
         /* ——————————————— HERO ——————————————— */
         .hero {
             padding: 60px 0 0;
@@ -80,7 +121,7 @@
 
         .hero-domain {
             font-family: 'Playfair Display', Georgia, serif;
-            font-size: clamp(3.2rem, 9vw, 6.8rem);
+            font-size: clamp(2.4rem, 9vw, 6.8rem);
             font-weight: 900;
             line-height: 0.92;
             letter-spacing: -0.03em;
@@ -100,6 +141,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: shimmer 5s linear 1.5s infinite;
+            word-break: break-word;
         }
 
         .hero-domain span.tld {
@@ -158,6 +200,7 @@
             background: var(--gold-light);
             border-radius: 50%;
             animation: pulse 2s ease infinite;
+            flex-shrink: 0;
         }
 
         @keyframes pulse {
@@ -183,7 +226,7 @@
 
         .section-title {
             font-family: 'Playfair Display', Georgia, serif;
-            font-size: 1.6rem;
+            font-size: clamp(1.2rem, 4vw, 1.6rem);
             font-weight: 700;
             color: var(--paper);
             text-align: center;
@@ -197,6 +240,7 @@
             color: rgba(247,244,238,0.45);
             text-align: center;
             margin-bottom: 40px;
+            padding: 0 16px;
         }
 
         /* Gold divider line */
@@ -280,10 +324,6 @@
             background: rgba(201,168,76,0.04);
         }
 
-        .form-input:focus + .input-line {
-            transform: scaleX(1);
-        }
-
         /* Price input wrapper with $ symbol */
         .price-wrapper {
             position: relative;
@@ -320,6 +360,8 @@
             position: relative;
             overflow: hidden;
             transition: color 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         .submit-btn::before {
@@ -367,6 +409,7 @@
             border-radius: 50%;
             animation: spin 0.7s linear infinite;
             display: none;
+            flex-shrink: 0;
         }
 
         @keyframes spin {
@@ -458,17 +501,35 @@
 
         /* ——————————————— RESPONSIVE ——————————————— */
         @media (max-width: 640px) {
-            .wrapper { padding: 0 20px; }
-            header { padding-top: 32px; }
-            .hero { padding-top: 44px; }
+            .wrapper { padding: 0 16px; }
+            header { padding-top: 24px; }
+            .hero { padding-top: 36px; }
+            .hero-domain { margin-bottom: 16px; }
+            .sale-badge {
+                gap: 10px;
+                padding: 9px 18px 10px;
+                margin-bottom: 44px;
+            }
+            .sale-badge-label { font-size: 0.62rem; }
+            .sale-badge-text  { font-size: 0.9rem; }
             .form-row { grid-template-columns: 1fr; }
-            .form-card { padding: 28px 20px 24px; }
-            .section-title { font-size: 1.3rem; }
+            .form-card { padding: 24px 16px 20px; }
+            .section-title { font-size: 1.2rem; }
+            .section-desc { font-size: 0.95rem; }
+            .offer-section { margin-bottom: 56px; }
             footer {
                 flex-direction: column;
                 gap: 8px;
                 text-align: center;
             }
+            .submit-btn { padding: 14px 20px; }
+            .form-input { font-size: 1rem; padding: 11px 14px; }
+            .price-wrapper .form-input { padding-left: 30px; }
+        }
+
+        @media (max-width: 380px) {
+            .hero-domain { font-size: 2rem; }
+            .sale-badge { flex-wrap: wrap; justify-content: center; gap: 6px; }
         }
     </style>
 </head>
@@ -478,55 +539,46 @@
 
     <!-- Header -->
     <header>
-        <div class="header-dateline"></div>
+        <div class="header-dateline">
+            <span id="hd-date"></span>
+            <!-- Til almashtirish knopkasi -->
+            <div class="lang-switcher" role="group" aria-label="Tilni tanlash">
+                <button class="lang-btn active" id="btn-uz" onclick="setLang('uz')" aria-pressed="true">UZ</button>
+                <div class="lang-sep"></div>
+                <button class="lang-btn" id="btn-ru" onclick="setLang('ru')" aria-pressed="false">RU</button>
+            </div>
+        </div>
     </header>
 
     <!-- Hero -->
     <section class="hero">
         <h1 class="hero-domain"><span class="tld">www.</span>xalqovozi<span class="tld">.com</span></h1>
         <div class="sale-badge">
-            <span class="sale-badge-label">Holat</span>
-            <span class="sale-badge-text">Sotiladi</span>
+            <span class="sale-badge-label" data-i18n="badge-label">Holat</span>
+            <span class="sale-badge-text"  data-i18n="badge-text">Sotiladi</span>
             <span class="sale-badge-dot"></span>
         </div>
     </section>
 
     <!-- Offer Form Section -->
     <section class="offer-section">
-        <p class="section-label">Taklif yuborish</p>
-        <h2 class="section-title">Narx taklifingizni yuboring</h2>
-        <p class="section-desc">Domen uchun taklifingizni qoldiring — siz bilan bog'lanamiz</p>
+        <p  class="section-label" data-i18n="section-label">Taklif yuborish</p>
+        <h2 class="section-title" data-i18n="section-title">Narx taklifingizni yuboring</h2>
+        <p  class="section-desc"  data-i18n="section-desc">Domen uchun taklifingizni qoldiring — siz bilan bog'lanamiz</p>
         <div class="gold-line"></div>
 
         <div class="form-card">
 
-            <!-- ===================================================
-                 TELEGRAM BOT orqali yuborish uchun:
-                 1. @BotFather dan bot yarating va BOT_TOKEN oling
-                 2. Botga yozing, so'ng @userinfobot orqali CHAT_ID oling
-                 3. Quyidagi ikkita qiymatni to'ldiring:
-                 =================================================== -->
             <input type="hidden" id="cfg-bot-token"  value="8228693453:AAHA_Y2FEazZLJpCmSSo6CA4Zv55Lj0W_DM">
             <input type="hidden" id="cfg-chat-id"    value="1786250495">
-
-            <!-- ===================================================
-                 FORMSPREE orqali yuborish uchun:
-                 1. formspree.io ga kiring va forma yarating
-                 2. Formspree endpoint URL ni quyidagiga yozing:
-                    Namuna: https://formspree.io/f/xpznkqab
-                 =================================================== -->
             <input type="hidden" id="cfg-formspree"  value="YOUR_FORMSPREE_ENDPOINT_HERE">
-
-            <!-- ===================================================
-                 USUL: "telegram" yoki "formspree" ni tanlang:
-                 =================================================== -->
             <input type="hidden" id="cfg-method"     value="telegram">
 
             <div class="form-row">
                 <!-- Ism va familiya -->
                 <div class="form-group">
                     <label class="form-label" for="f-name">
-                        Ism va familiya <span class="required">*</span>
+                        <span data-i18n="label-name">Ism va familiya</span> <span class="required">*</span>
                     </label>
                     <input
                         class="form-input"
@@ -536,13 +588,13 @@
                         placeholder="Abdullayev Jasur"
                         autocomplete="name"
                     >
-                    <span class="field-error" id="err-name">Iltimos, ismingizni kiriting</span>
+                    <span class="field-error" id="err-name" data-i18n="err-name">Iltimos, ismingizni kiriting</span>
                 </div>
 
                 <!-- Taklif narxi -->
                 <div class="form-group">
                     <label class="form-label" for="f-price">
-                        Taklif narxi <span class="required">*</span>
+                        <span data-i18n="label-price">Taklif narxi</span> <span class="required">*</span>
                     </label>
                     <div class="price-wrapper">
                         <span class="price-symbol">$</span>
@@ -556,7 +608,7 @@
                             step="any"
                         >
                     </div>
-                    <span class="field-error" id="err-price">Iltimos, narx kiriting</span>
+                    <span class="field-error" id="err-price" data-i18n="err-price">Iltimos, narx kiriting</span>
                 </div>
             </div>
 
@@ -564,7 +616,7 @@
                 <!-- Telefon raqami -->
                 <div class="form-group">
                     <label class="form-label" for="f-phone">
-                        Telefon raqami <span class="required">*</span>
+                        <span data-i18n="label-phone">Telefon raqami</span> <span class="required">*</span>
                     </label>
                     <input
                         class="form-input"
@@ -574,7 +626,7 @@
                         placeholder="+998 90 000 00 00"
                         autocomplete="tel"
                     >
-                    <span class="field-error" id="err-phone">Iltimos, telefon raqam kiriting</span>
+                    <span class="field-error" id="err-phone" data-i18n="err-phone">Iltimos, telefon raqam kiriting</span>
                 </div>
 
                 <!-- Telegram -->
@@ -595,8 +647,8 @@
             <button class="submit-btn" id="submit-btn" type="button" onclick="sendOffer()">
                 <span>
                     <div class="spinner"></div>
-                    <span class="btn-text">Taklifni yuborish</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <span class="btn-text" data-i18n="btn-submit">Taklifni yuborish</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <line x1="5" y1="12" x2="19" y2="12"/>
                         <polyline points="12 5 19 12 12 19"/>
                     </svg>
@@ -604,19 +656,19 @@
             </button>
 
             <div class="status-msg" id="status-success">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12"/>
                 </svg>
-                Taklifingiz muvaffaqiyatli yuborildi! Tez orada siz bilan bog'lanamiz.
+                <span data-i18n="msg-success">Taklifingiz muvaffaqiyatli yuborildi! Tez orada siz bilan bog'lanamiz.</span>
             </div>
 
             <div class="status-msg" id="status-error">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <circle cx="12" cy="12" r="10"/>
                     <line x1="12" y1="8" x2="12" y2="12"/>
                     <line x1="12" y1="16" x2="12.01" y2="16"/>
                 </svg>
-                <span id="error-text">Xatolik yuz berdi. Iltimos, qayta urinib ko'ring.</span>
+                <span id="error-text" data-i18n="msg-error">Xatolik yuz berdi. Iltimos, qayta urinib ko'ring.</span>
             </div>
 
         </div>
@@ -624,13 +676,108 @@
 
     <!-- Footer -->
     <footer>
-        <span class="footer-left">www.xalqovozi.com &mdash; 2026</span>
-        <span class="footer-right">Domen sotilmoqda</span>
+        <span class="footer-left">xalqovozi.com &mdash; 2025</span>
+        <span class="footer-right" data-i18n="footer-right">Domen sotilmoqda</span>
     </footer>
 
 </div>
 
 <script>
+    /* ============================================================
+       TIL / ЯЗЫК
+       ============================================================ */
+    const i18n = {
+        uz: {
+            'badge-label':   'Holat',
+            'badge-text':    'Sotiladi',
+            'section-label': 'Taklif yuborish',
+            'section-title': 'Narx taklifingizni yuboring',
+            'section-desc':  'Domen uchun taklifingizni qoldiring — siz bilan bog\'lanamiz',
+            'label-name':    'Ism va familiya',
+            'label-price':   'Taklif narxi',
+            'label-phone':   'Telefon raqami',
+            'err-name':      'Iltimos, ismingizni kiriting',
+            'err-price':     'Iltimos, narx kiriting',
+            'err-phone':     'Iltimos, telefon raqam kiriting',
+            'btn-submit':    'Taklifni yuborish',
+            'msg-success':   'Taklifingiz muvaffaqiyatli yuborildi! Tez orada siz bilan bog\'lanamiz.',
+            'msg-error':     'Xatolik yuz berdi. Iltimos, qayta urinib ko\'ring.',
+            'footer-right':  'Domen sotilmoqda',
+            'title':         'xalqovozi.com — Sotiladi',
+        },
+        ru: {
+            'badge-label':   'Статус',
+            'badge-text':    'Продаётся',
+            'section-label': 'Отправить предложение',
+            'section-title': 'Оставьте ваше ценовое предложение',
+            'section-desc':  'Укажите вашу цену за домен — мы свяжемся с вами',
+            'label-name':    'Имя и фамилия',
+            'label-price':   'Предлагаемая цена',
+            'label-phone':   'Номер телефона',
+            'err-name':      'Пожалуйста, введите ваше имя',
+            'err-price':     'Пожалуйста, введите цену',
+            'err-phone':     'Пожалуйста, введите номер телефона',
+            'btn-submit':    'Отправить предложение',
+            'msg-success':   'Ваше предложение успешно отправлено! Мы свяжемся с вами в ближайшее время.',
+            'msg-error':     'Произошла ошибка. Пожалуйста, попробуйте ещё раз.',
+            'footer-right':  'Домен продаётся',
+            'title':         'xalqovozi.com — Продаётся',
+        }
+    };
+
+    let currentLang = 'uz';
+
+    function setLang(lang) {
+        if (lang === currentLang) return;
+        currentLang = lang;
+
+        // Knopkalar holati
+        document.getElementById('btn-uz').classList.toggle('active', lang === 'uz');
+        document.getElementById('btn-ru').classList.toggle('active', lang === 'ru');
+        document.getElementById('btn-uz').setAttribute('aria-pressed', lang === 'uz');
+        document.getElementById('btn-ru').setAttribute('aria-pressed', lang === 'ru');
+
+        // HTML lang atributi
+        document.documentElement.lang = lang === 'ru' ? 'ru' : 'uz';
+
+        // Barcha tarjimalar
+        const dict = i18n[lang];
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (dict[key] !== undefined) el.textContent = dict[key];
+        });
+
+        // Sahifa sarlavhasi
+        document.title = dict['title'];
+
+        // Validatsiya xatoliklarini yangidan belgilash uchun saqlash
+        _errTexts = {
+            'err-name':  dict['err-name'],
+            'err-price': dict['err-price'],
+            'err-phone': dict['err-phone'],
+        };
+    }
+
+    // Xato matni zaxirasi (validatsiya uchun)
+    let _errTexts = {
+        'err-name':  i18n.uz['err-name'],
+        'err-price': i18n.uz['err-price'],
+        'err-phone': i18n.uz['err-phone'],
+    };
+
+    /* ============================================================
+       SANA / ДАТА
+       ============================================================ */
+    (function() {
+        const now = new Date();
+        const opts = { year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('hd-date').textContent =
+            now.toLocaleDateString('uz-UZ', opts);
+    })();
+
+    /* ============================================================
+       VALIDATSIYA
+       ============================================================ */
     function validate() {
         let valid = true;
 
@@ -652,8 +799,10 @@
         return valid;
     }
 
+    /* ============================================================
+       YUBORISH
+       ============================================================ */
     async function sendOffer() {
-        // Hide old messages
         document.getElementById('status-success').className = 'status-msg';
         document.getElementById('status-error').className   = 'status-msg';
 
@@ -662,7 +811,6 @@
         const btn    = document.getElementById('submit-btn');
         const method = document.getElementById('cfg-method').value.trim();
 
-        // Collect data
         const name     = document.getElementById('f-name').value.trim();
         const price    = document.getElementById('f-price').value.trim();
         const phone    = document.getElementById('f-phone').value.trim();
@@ -678,18 +826,17 @@
                 await sendViaFormspree(name, price, phone, telegram);
             }
 
-            // Success
             btn.style.display = 'none';
             document.getElementById('status-success').className = 'status-msg success';
 
-            // Clear fields
             ['f-name','f-price','f-phone','f-telegram'].forEach(id => {
                 document.getElementById(id).value = '';
             });
 
         } catch (err) {
+            const dict = i18n[currentLang];
             document.getElementById('error-text').textContent =
-                err.message || 'Xatolik yuz berdi. Iltimos, qayta urinib ko\'ring.';
+                err.message || dict['msg-error'];
             document.getElementById('status-error').className = 'status-msg error';
             btn.disabled = false;
             btn.classList.remove('loading');
@@ -701,8 +848,13 @@
         const token  = document.getElementById('cfg-bot-token').value.trim();
         const chatId = document.getElementById('cfg-chat-id').value.trim();
 
-        if (token === 'YOUR_BOT_TOKEN_HERE' || chatId === 'YOUR_CHAT_ID_HERE') {
-            throw new Error('Telegram konfiguratsiyasi to\'ldirilmagan (BOT_TOKEN va CHAT_ID kerak).');
+        if (token === '8228693453:AAHA_Y2FEazZLJpCmSSo6CA4Zv55Lj0W_DM' || chatId === '1786250495') {
+            const dict = i18n[currentLang];
+            throw new Error(
+                currentLang === 'ru'
+                    ? 'Конфигурация Telegram не заполнена (нужны BOT_TOKEN и CHAT_ID).'
+                    : 'Telegram konfiguratsiyasi to\'ldirilmagan (BOT_TOKEN va CHAT_ID kerak).'
+            );
         }
 
         const tg = telegram ? telegram : '—';
@@ -728,7 +880,10 @@
 
         const data = await res.json();
         if (!data.ok) {
-            throw new Error('Telegram xatosi: ' + (data.description || 'Noma\'lum xato'));
+            throw new Error(
+                (currentLang === 'ru' ? 'Ошибка Telegram: ' : 'Telegram xatosi: ') +
+                (data.description || (currentLang === 'ru' ? 'Неизвестная ошибка' : 'Noma\'lum xato'))
+            );
         }
     }
 
@@ -737,7 +892,11 @@
         const endpoint = document.getElementById('cfg-formspree').value.trim();
 
         if (endpoint === 'YOUR_FORMSPREE_ENDPOINT_HERE') {
-            throw new Error('Formspree endpoint to\'ldirilmagan.');
+            throw new Error(
+                currentLang === 'ru'
+                    ? 'Endpoint Formspree не заполнен.'
+                    : 'Formspree endpoint to\'ldirilmagan.'
+            );
         }
 
         const res = await fetch(endpoint, {
@@ -757,7 +916,7 @@
 
         const data = await res.json();
         if (!res.ok) {
-            throw new Error(data.error || 'Formspree xatosi yuz berdi.');
+            throw new Error(data.error || (currentLang === 'ru' ? 'Ошибка Formspree.' : 'Formspree xatosi yuz berdi.'));
         }
     }
 </script>
