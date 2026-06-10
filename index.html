@@ -91,12 +91,11 @@
     .hero-domain {
       font-family: 'Playfair Display', serif;
       font-weight: 900;
-      /* mobile: fit within screen, never wrap awkwardly */
-      font-size: min(9vw, 52px);
+      font-size: clamp(42px, 11vw, 130px);
       line-height: 1.05;
       letter-spacing: -0.01em;
       margin-bottom: 24px;
-      white-space: nowrap;   /* keep on one line on mobile */
+      white-space: nowrap;
     }
     .hero-domain .www  { color: var(--gold); }
     .hero-domain .name { color: var(--white); }
@@ -112,11 +111,12 @@
       color: #fff;
       padding: 11px 20px;
       border-radius: var(--radius);
-      font-size: 12px;
+      font-size: clamp(14px, 3.8vw, 13px);
       letter-spacing: 0.15em;
       text-transform: uppercase;
       font-weight: 600;
       margin-bottom: 0;
+      padding: 13px 26px;
     }
     .status-badge .label { color: rgba(255,255,255,0.55); font-weight: 400; }
     .status-badge .dot-pulse {
@@ -296,7 +296,7 @@
 
 <!-- ── HEADER ── -->
 <header>
-  <span class="date-label">2026 МОЙ 9</span>
+  <span class="date-label">Xalq ovozi</span>
   <div class="lang-switcher">
     <button onclick="setLang('uz')" id="btn-uz">UZ</button>
     <button onclick="setLang('ru')" id="btn-ru" class="active">RU</button>
@@ -358,8 +358,8 @@
       </div>
       <div class="form-row" style="margin-bottom:0">
         <label>
-          <span data-ru>Ваша цена (USD)</span>
-          <span data-uz>Narxingiz (USD)</span>
+          <span data-ru>Ваша цена ($)</span>
+          <span data-uz>Narxingiz ($)</span>
         </label>
         <input type="number" id="f-price" min="0"
           data-ru-ph="Например: 500"
@@ -370,8 +370,8 @@
 
     <div class="form-row" style="margin-top:16px">
       <label>
-        <span data-ru>Комментарий (необязательно)</span>
-        <span data-uz>Izoh (ixtiyoriy)</span>
+        <span data-ru>Комментарий </span>
+        <span data-uz>Izoh </span>
       </label>
       <textarea id="f-comment" rows="3"
         data-ru-ph="Дополнительная информация..."
@@ -398,7 +398,7 @@
 
 <!-- ── FOOTER ── -->
 <footer>
-  <span class="foot-domain">xalqovozi.com</span>
+  <span class="foot-domain">www.xalqovozi.com</span>
   <span class="foot-copy">© 2026 · <span data-ru>Домен продаётся</span><span data-uz>Domen sotiladi</span></span>
 </footer>
 
