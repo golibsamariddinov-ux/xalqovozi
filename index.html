@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <title>xalqovozi.com — Продаётся</title>
 
   <!-- Hidden config -->
@@ -17,17 +17,15 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black:   #0a0a0a;
-      --dark:    #111111;
-      --card:    #181818;
-      --gold:    #c8a84b;
-      --gold2:   #e8c96a;
-      --white:   #f0ece4;
-      --red:     #9b2020;
-      --red2:    #c0392b;
-      --muted:   #666;
-      --border:  #2a2a2a;
-      --radius:  6px;
+      --black:  #0a0a0a;
+      --card:   #181818;
+      --gold:   #c8a84b;
+      --gold2:  #e8c96a;
+      --white:  #f0ece4;
+      --red:    #9b2020;
+      --muted:  #666;
+      --border: #2a2a2a;
+      --radius: 6px;
     }
 
     html { scroll-behavior: smooth; }
@@ -38,6 +36,7 @@
       font-family: 'Inter', sans-serif;
       min-height: 100vh;
       overflow-x: hidden;
+      width: 100%;
     }
 
     /* ── HEADER ── */
@@ -48,22 +47,19 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 18px 24px;
-      background: linear-gradient(to bottom, rgba(10,10,10,0.97) 0%, transparent 100%);
+      padding: 16px 20px;
+      background: rgba(10,10,10,0.97);
     }
 
     .date-label {
       font-size: 10px;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.12em;
       color: var(--muted);
       font-weight: 300;
       text-transform: uppercase;
     }
 
-    .lang-switcher {
-      display: flex;
-      gap: 6px;
-    }
+    .lang-switcher { display: flex; gap: 6px; }
     .lang-switcher button {
       background: transparent;
       border: 1px solid var(--border);
@@ -72,50 +68,35 @@
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.1em;
-      padding: 6px 13px;
+      padding: 6px 14px;
       cursor: pointer;
       border-radius: var(--radius);
       transition: all .2s;
       touch-action: manipulation;
     }
-    .lang-switcher button.active,
-    .lang-switcher button:hover {
-      background: var(--gold);
-      border-color: var(--gold);
-      color: var(--black);
-    }
+    .lang-switcher button.active { background: var(--gold); border-color: var(--gold); color: var(--black); }
 
     /* ── HERO ── */
     .hero {
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 100px 20px 60px;
+      padding: 100px 24px 50px;
+      min-height: 100svh;
       position: relative;
-    }
-
-    /* subtle radial glow */
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -60%);
-      width: 700px; height: 500px;
-      background: radial-gradient(ellipse, rgba(200,168,75,0.07) 0%, transparent 70%);
-      pointer-events: none;
     }
 
     .hero-domain {
       font-family: 'Playfair Display', serif;
       font-weight: 900;
-      font-size: clamp(38px, 10vw, 130px);
+      /* mobile: fit within screen, never wrap awkwardly */
+      font-size: min(9vw, 52px);
       line-height: 1.05;
       letter-spacing: -0.01em;
-      margin-bottom: 28px;
-      word-break: break-word;
+      margin-bottom: 24px;
+      white-space: nowrap;   /* keep on one line on mobile */
     }
     .hero-domain .www  { color: var(--gold); }
     .hero-domain .name { color: var(--white); }
@@ -125,32 +106,21 @@
     .status-badge {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
       gap: 10px;
       background: var(--red);
       border: 1px solid rgba(255,255,255,0.08);
       color: #fff;
-      padding: 12px 22px;
+      padding: 11px 20px;
       border-radius: var(--radius);
       font-size: 12px;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
       font-weight: 600;
-      margin-bottom: 60px;
-      position: relative;
-      overflow: hidden;
-      max-width: 90vw;
+      margin-bottom: 0;
     }
-    .status-badge::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 60%);
-    }
-    .status-badge .label { color: rgba(255,255,255,0.55); font-weight: 400; letter-spacing: 0.2em; }
+    .status-badge .label { color: rgba(255,255,255,0.55); font-weight: 400; }
     .status-badge .dot-pulse {
-      width: 8px; height: 8px;
+      width: 7px; height: 7px;
       background: #ff6b6b;
       border-radius: 50%;
       flex-shrink: 0;
@@ -163,68 +133,64 @@
 
     /* ── FORM SECTION ── */
     .form-section {
-      padding: 0 16px 80px;
+      padding: 48px 16px 60px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 100%;
     }
 
     .section-eyebrow {
-      font-size: 10px;
-      letter-spacing: 0.26em;
+      font-size: 9px;
+      letter-spacing: 0.24em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       text-align: center;
     }
 
     .section-title {
       font-family: 'Playfair Display', serif;
       font-weight: 700;
-      font-size: clamp(20px, 5.5vw, 36px);
+      font-size: 22px;
       color: var(--white);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       text-align: center;
-      line-height: 1.25;
-      padding: 0 8px;
+      line-height: 1.3;
     }
 
     .section-sub {
-      font-size: 14px;
+      font-size: 13px;
       color: var(--muted);
       font-style: italic;
-      margin-bottom: 36px;
+      margin-bottom: 28px;
       text-align: center;
-      padding: 0 8px;
       line-height: 1.5;
     }
 
     .divider {
-      width: 40px;
-      height: 1px;
+      width: 36px; height: 1px;
       background: var(--border);
-      margin: 0 auto 36px;
+      margin: 0 auto 28px;
     }
 
     .offer-form {
       width: 100%;
-      max-width: 520px;
+      max-width: 480px;
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 28px 20px;
+      padding: 24px 18px;
     }
 
-    .form-row {
-      margin-bottom: 18px;
-    }
+    .form-row { margin-bottom: 16px; }
     .form-row label {
       display: block;
       font-size: 10px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 7px;
+      margin-bottom: 6px;
     }
     .form-row input,
     .form-row textarea {
@@ -234,8 +200,8 @@
       border-radius: var(--radius);
       color: var(--white);
       font-family: 'Inter', sans-serif;
-      font-size: 16px; /* 16px prevents iOS zoom */
-      padding: 13px 14px;
+      font-size: 16px;
+      padding: 12px 13px;
       outline: none;
       transition: border-color .2s;
       resize: none;
@@ -247,11 +213,12 @@
     .form-row input:focus,
     .form-row textarea:focus { border-color: var(--gold); }
 
+    /* phone & price always stacked on mobile */
     .price-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 16px;
     }
 
     .submit-btn {
@@ -265,49 +232,32 @@
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      padding: 16px;
+      padding: 15px;
       cursor: pointer;
-      transition: background .2s, transform .15s;
-      margin-top: 6px;
+      transition: background .2s;
+      margin-top: 4px;
       touch-action: manipulation;
       -webkit-appearance: none;
     }
-    .submit-btn:hover   { background: var(--gold2); }
-    .submit-btn:active  { transform: scale(0.98); }
-    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .submit-btn:active  { opacity: 0.85; }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    .form-note {
-      font-size: 12px;
-      color: var(--muted);
-      text-align: center;
-      margin-top: 16px;
-      line-height: 1.6;
-    }
-
-    /* feedback messages */
-    .msg { display: none; margin-top: 14px; padding: 12px 14px; border-radius: var(--radius); font-size: 13px; text-align: center; line-height: 1.5; }
+    .msg { display: none; margin-top: 12px; padding: 11px 13px; border-radius: var(--radius); font-size: 13px; text-align: center; line-height: 1.5; }
     .msg.success { background: rgba(40,167,69,0.15); border: 1px solid rgba(40,167,69,0.3); color: #6fcf97; display: block; }
     .msg.error   { background: rgba(220,53,69,0.15); border: 1px solid rgba(220,53,69,0.3); color: #eb5757; display: block; }
 
     /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--border);
-      padding: 22px 20px;
+      padding: 20px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 6px;
     }
-    footer .foot-domain {
-      font-family: 'Playfair Display', serif;
-      font-size: 14px;
-      color: var(--gold);
-    }
-    footer .foot-copy {
-      font-size: 12px;
-      color: var(--muted);
-    }
+    footer .foot-domain { font-family: 'Playfair Display', serif; font-size: 13px; color: var(--gold); }
+    footer .foot-copy   { font-size: 11px; color: var(--muted); }
 
     /* ── TRANSLATIONS ── */
     [data-uz] { display: none; }
@@ -316,23 +266,29 @@
     body.uz span[data-uz] { display: inline; }
     body.uz span[data-ru] { display: none; }
 
-    /* ── DESKTOP overrides ── */
-    @media (min-width: 641px) {
+    /* ── DESKTOP ── */
+    @media (min-width: 700px) {
       header { padding: 22px 60px; }
-      .hero  { padding: 120px 40px 80px; }
-      .hero-domain { font-size: clamp(64px, 9vw, 130px); line-height: 1.0; }
-      .status-badge { font-size: 13px; padding: 14px 32px; gap: 14px; margin-bottom: 80px; }
-      .form-section { padding: 0 40px 120px; }
-      .offer-form   { padding: 40px; }
-      footer { padding: 28px 60px; }
-      .section-title { font-size: clamp(26px, 3vw, 36px); }
-      .section-sub   { font-size: 15px; }
-    }
 
-    /* ── MOBILE: tiny screens ── */
-    @media (max-width: 380px) {
-      .hero-domain { font-size: 32px; }
-      .price-row   { grid-template-columns: 1fr; }
+      .hero { padding: 130px 40px 90px; }
+      .hero-domain {
+        font-size: clamp(72px, 9vw, 130px);
+        white-space: nowrap;
+        margin-bottom: 36px;
+      }
+      .status-badge { font-size: 13px; padding: 14px 32px; gap: 14px; }
+
+      .form-section { padding: 60px 40px 100px; }
+      .offer-form   { padding: 40px; }
+      .section-title { font-size: 32px; }
+      .section-sub   { font-size: 15px; }
+
+      .price-row {
+        flex-direction: row;
+      }
+      .price-row > * { flex: 1; }
+
+      footer { padding: 28px 60px; }
     }
   </style>
 </head>
@@ -340,7 +296,7 @@
 
 <!-- ── HEADER ── -->
 <header>
-  <span class="date-label">2026</span>
+  <span class="date-label">2026 МОЙ 9</span>
   <div class="lang-switcher">
     <button onclick="setLang('uz')" id="btn-uz">UZ</button>
     <button onclick="setLang('ru')" id="btn-ru" class="active">RU</button>
@@ -352,7 +308,6 @@
   <h1 class="hero-domain">
     <span class="www">www.</span><span class="name">xalqovozi</span><span class="dot">.</span><span class="ext">com</span>
   </h1>
-
   <div class="status-badge">
     <span class="label" data-ru>СТАТУС</span>
     <span class="label" data-uz>HOLAT</span>
@@ -396,15 +351,15 @@
           <span data-ru>Телефон / Telegram</span>
           <span data-uz>Telefon / Telegram</span>
         </label>
-        <input type="text" id="f-contact"
+        <input type="tel" id="f-contact"
           data-ru-ph="+998 __ ___ __ __"
           data-uz-ph="+998 __ ___ __ __"
           placeholder="+998 __ ___ __ __" />
       </div>
       <div class="form-row" style="margin-bottom:0">
         <label>
-          <span data-ru>Ваша цена ($)</span>
-          <span data-uz>Narxingiz ($)</span>
+          <span data-ru>Ваша цена (USD)</span>
+          <span data-uz>Narxingiz (USD)</span>
         </label>
         <input type="number" id="f-price" min="0"
           data-ru-ph="Например: 500"
@@ -413,7 +368,7 @@
       </div>
     </div>
 
-    <div class="form-row" style="margin-top:20px">
+    <div class="form-row" style="margin-top:16px">
       <label>
         <span data-ru>Комментарий (необязательно)</span>
         <span data-uz>Izoh (ixtiyoriy)</span>
@@ -443,12 +398,11 @@
 
 <!-- ── FOOTER ── -->
 <footer>
-  <span class="foot-domain">www.xalqovozi.com</span>
+  <span class="foot-domain">xalqovozi.com</span>
   <span class="foot-copy">© 2026 · <span data-ru>Домен продаётся</span><span data-uz>Domen sotiladi</span></span>
 </footer>
 
 <script>
-  // ── Language switch ──
   function setLang(lang) {
     document.body.className = lang;
     document.getElementById('btn-uz').classList.toggle('active', lang === 'uz');
@@ -462,7 +416,6 @@
     });
   }
 
-  // ── Telegram send ──
   async function sendOffer() {
     const name    = document.getElementById('f-name').value.trim();
     const contact = document.getElementById('f-contact').value.trim();
@@ -479,8 +432,8 @@
 
     if (!name || !contact || !price) {
       msgError.style.display = 'block';
-      msgError.querySelector('[data-ru]').textContent  = '✗ Пожалуйста, заполните все обязательные поля.';
-      msgError.querySelector('[data-uz]').textContent  = '✗ Iltimos, barcha majburiy maydonlarni to\'ldiring.';
+      msgError.querySelector('[data-ru]').textContent = '✗ Пожалуйста, заполните все обязательные поля.';
+      msgError.querySelector('[data-uz]').textContent = "✗ Iltimos, barcha majburiy maydonlarni to'ldiring.";
       return;
     }
 
@@ -508,7 +461,6 @@
         body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'Markdown' })
       });
       const data = await res.json();
-
       if (data.ok) {
         msgSuccess.style.display = 'block';
         document.getElementById('f-name').value    = '';
