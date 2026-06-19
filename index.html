@@ -9,9 +9,7 @@
   <input type="hidden" id="cfg-bot-token" value="8228693453:AAHA_Y2FEazZLJpCmSSo6CA4Zv55Lj0W_DM">
   <input type="hidden" id="cfg-chat-id"   value="1786250495">
   <!-- Kunlik tashrif hisoblagich (Cloudflare Worker manzili) -->
-  <!-- Worker'ni joylagandan keyin shu yerga o'z manzilingizni qo'ying, masalan: -->
-  <!-- https://xalqovozi-stats.SIZNING-NOM.workers.dev -->
-  <input type="hidden" id="cfg-worker-url" value="https://xalqovozi-stats.SIZNING-NOM.workers.dev">
+  <input type="hidden" id="cfg-worker-url" value="https://xalqovozi-stats.golibsamariddinov0090.workers.dev">
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -459,9 +457,8 @@
   // Sahifa yuklanganda joylashuvni avtomatik aniqlashni boshlaymiz
   detectVisitorLocation();
 
-  // ── KUNLIK TASHRIF HISOBLAGICH ──
+  // ── TASHRIF HISOBLAGICH (HAR 3 SOATDA TELEGRAMGA YUBORILADI) ──
   // Har bir sahifa ochilishida Cloudflare Worker'ga "hit" yuboramiz.
-  // Worker bu sonni saqlaydi va har kuni soat 7:00da Telegramga jo'natadi.
   (function trackVisit() {
     const workerUrl = document.getElementById('cfg-worker-url').value;
     if (!workerUrl || workerUrl.includes('SIZNING-NOM')) return; // hali sozlanmagan
