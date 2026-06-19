@@ -61,7 +61,7 @@
       text-transform: uppercase;
     }
 
-    .lang-switcher { display: flex; gap: 6px; }
+    .lang-switcher { display: flex; gap: 5px; }
     .lang-switcher button {
       background: transparent;
       border: 1px solid var(--border);
@@ -70,7 +70,7 @@
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.1em;
-      padding: 6px 14px;
+      padding: 6px 12px;
       cursor: pointer;
       border-radius: var(--radius);
       transition: all .2s;
@@ -262,11 +262,10 @@
     footer .foot-copy   { font-size: 11px; color: var(--muted); }
 
     /* ── TRANSLATIONS ── */
-    [data-uz] { display: none; }
-    body.uz [data-ru] { display: none; }
-    body.uz [data-uz] { display: block; }
-    body.uz span[data-uz] { display: inline; }
-    body.uz span[data-ru] { display: none; }
+    [data-ru], [data-uz], [data-en] { display: none; }
+    body.ru [data-ru] { display: inline; }
+    body.uz [data-uz] { display: inline; }
+    body.en [data-en] { display: inline; }
 
     /* ── DESKTOP ── */
     @media (min-width: 700px) {
@@ -302,6 +301,7 @@
   <div class="lang-switcher">
     <button onclick="setLang('uz')" id="btn-uz">UZ</button>
     <button onclick="setLang('ru')" id="btn-ru" class="active">RU</button>
+    <button onclick="setLang('en')" id="btn-en">EN</button>
   </div>
 </header>
 
@@ -313,8 +313,10 @@
   <div class="status-badge">
     <span class="label" data-ru>СТАТУС</span>
     <span class="label" data-uz>HOLAT</span>
+    <span class="label" data-en>STATUS</span>
     <span data-ru>ПРОДАЁТСЯ</span>
     <span data-uz>SOTILADI</span>
+    <span data-en>FOR SALE</span>
     <span class="dot-pulse"></span>
   </div>
 </section>
@@ -324,14 +326,17 @@
   <p class="section-eyebrow">
     <span data-ru>ОТПРАВИТЬ ПРЕДЛОЖЕНИЕ</span>
     <span data-uz>TAKLIF YUBORISH</span>
+    <span data-en>SUBMIT AN OFFER</span>
   </p>
   <h2 class="section-title">
     <span data-ru>Оставьте ваше ценовое предложение</span>
     <span data-uz>Narx taklifingizni qoldiring</span>
+    <span data-en>Leave your price offer</span>
   </h2>
   <p class="section-sub">
     <span data-ru>Укажите вашу цену за домен — мы свяжемся с вами</span>
     <span data-uz>Domen narxini ko'rsating — biz siz bilan bog'lanamiz</span>
+    <span data-en>Specify your price for the domain — we'll contact you</span>
   </p>
   <div class="divider"></div>
 
@@ -340,10 +345,12 @@
       <label>
         <span data-ru>Ваше имя</span>
         <span data-uz>Ismingiz</span>
+        <span data-en>Your name</span>
       </label>
       <input type="text" id="f-name"
         data-ru-ph="Введите имя"
         data-uz-ph="Ismingizni kiriting"
+        data-en-ph="Enter your name"
         placeholder="Введите имя" />
     </div>
 
@@ -352,20 +359,24 @@
         <label>
           <span data-ru>Телефон / Telegram</span>
           <span data-uz>Telefon / Telegram</span>
+          <span data-en>Phone / Telegram</span>
         </label>
         <input type="tel" id="f-contact"
           data-ru-ph="+998 __ ___ __ __"
           data-uz-ph="+998 __ ___ __ __"
+          data-en-ph="+998 __ ___ __ __"
           placeholder="+998 __ ___ __ __" />
       </div>
       <div class="form-row" style="margin-bottom:0">
         <label>
           <span data-ru>Ваша цена ($)</span>
           <span data-uz>Narxingiz ($)</span>
+          <span data-en>Your price ($)</span>
         </label>
         <input type="number" id="f-price" min="0"
           data-ru-ph="Например: 500"
           data-uz-ph="Masalan: 500"
+          data-en-ph="E.g.: 500"
           placeholder="Например: 500" />
       </div>
     </div>
@@ -374,26 +385,31 @@
       <label>
         <span data-ru>Комментарий </span>
         <span data-uz>Izoh </span>
+        <span data-en>Comment </span>
       </label>
       <textarea id="f-comment" rows="3"
         data-ru-ph="Дополнительная информация..."
         data-uz-ph="Qo'shimcha ma'lumot..."
+        data-en-ph="Additional information..."
         placeholder="Дополнительная информация..."></textarea>
     </div>
 
     <button class="submit-btn" id="submit-btn" onclick="sendOffer()">
       <span data-ru>ОТПРАВИТЬ ПРЕДЛОЖЕНИЕ</span>
       <span data-uz>TAKLIF YUBORISH</span>
+      <span data-en>SUBMIT OFFER</span>
     </button>
 
     <p class="form-note" id="form-msg"></p>
     <div class="msg" id="msg-success">
       <span data-ru>✓ Ваше предложение отправлено! Мы свяжемся с вами в ближайшее время.</span>
       <span data-uz>✓ Taklifingiz yuborildi! Tez orada siz bilan bog'lanamiz.</span>
+      <span data-en>✓ Your offer has been sent! We will contact you shortly.</span>
     </div>
     <div class="msg" id="msg-error">
       <span data-ru>✗ Ошибка отправки. Попробуйте ещё раз.</span>
       <span data-uz>✗ Yuborishda xatolik. Qayta urinib ko'ring.</span>
+      <span data-en>✗ Submission error. Please try again.</span>
     </div>
   </div>
 </section>
@@ -401,7 +417,7 @@
 <!-- ── FOOTER ── -->
 <footer>
   <span class="foot-domain">www.xalqovozi.com</span>
-  <span class="foot-copy">© 2026 · <span data-ru>Домен продаётся</span><span data-uz>Domen sotiladi</span></span>
+  <span class="foot-copy">© 2026 · <span data-ru>Домен продаётся</span><span data-uz>Domen sotiladi</span><span data-en>Domain for sale</span></span>
 </footer>
 
 <script>
@@ -409,12 +425,15 @@
     document.body.className = lang;
     document.getElementById('btn-uz').classList.toggle('active', lang === 'uz');
     document.getElementById('btn-ru').classList.toggle('active', lang === 'ru');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
     updatePlaceholders(lang);
   }
 
   function updatePlaceholders(lang) {
     document.querySelectorAll('[data-ru-ph]').forEach(el => {
-      el.placeholder = lang === 'uz' ? el.dataset.uzPh : el.dataset.ruPh;
+      if (lang === 'uz') el.placeholder = el.dataset.uzPh;
+      else if (lang === 'en') el.placeholder = el.dataset.enPh;
+      else el.placeholder = el.dataset.ruPh;
     });
   }
 
@@ -470,7 +489,7 @@
     const contact = document.getElementById('f-contact').value.trim();
     const price   = document.getElementById('f-price').value.trim();
     const comment = document.getElementById('f-comment').value.trim();
-    const isUz    = document.body.classList.contains('uz');
+    const lang    = document.body.classList.contains('uz') ? 'uz' : (document.body.classList.contains('en') ? 'en' : 'ru');
 
     const msgSuccess = document.getElementById('msg-success');
     const msgError   = document.getElementById('msg-error');
@@ -483,6 +502,7 @@
       msgError.style.display = 'block';
       msgError.querySelector('[data-ru]').textContent = '✗ Пожалуйста, заполните все обязательные поля.';
       msgError.querySelector('[data-uz]').textContent = "✗ Iltimos, barcha majburiy maydonlarni to'ldiring.";
+      msgError.querySelector('[data-en]').textContent = '✗ Please fill in all required fields.';
       return;
     }
 
@@ -512,7 +532,7 @@
     ].filter(Boolean).join('\n');
 
     btn.disabled = true;
-    btn.textContent = isUz ? 'YUBORILMOQDA...' : 'ОТПРАВКА...';
+    btn.textContent = lang === 'uz' ? 'YUBORILMOQDA...' : (lang === 'en' ? 'SENDING...' : 'ОТПРАВКА...');
 
     try {
       const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
@@ -535,9 +555,11 @@
       msgError.style.display = 'block';
     } finally {
       btn.disabled = false;
-      btn.innerHTML = isUz
+      btn.innerHTML = lang === 'uz'
         ? '<span data-uz>TAKLIF YUBORISH</span>'
-        : '<span data-ru>ОТПРАВИТЬ ПРЕДЛОЖЕНИЕ</span>';
+        : (lang === 'en'
+          ? '<span data-en>SUBMIT OFFER</span>'
+          : '<span data-ru>ОТПРАВИТЬ ПРЕДЛОЖЕНИЕ</span>');
     }
   }
 </script>
